@@ -1,0 +1,111 @@
+
+    <div class="container-fluid bg content">
+        <div class="container">
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                   
+                
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card regform wow bounce animated" data-wow-delay="0.05s">
+                        <div class="card-body regform">
+                            <div class="myform form ">
+                                <div class="logo mb-3">
+                                    <div class="col-md-12 text-center">
+                                        <h1 class="sign">S'inscrire</h1>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="isOk == 1" class="col-md-12">
+                                    <div class="form-group">
+                                        <p class="text-center">
+                                            Votre compte a été créé avec succès
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <form [formGroup]="formRegister" #ngForm="ngForm" (ngSubmit)="submitForm()">
+                                    
+                                    <div class="form-group">
+                                        <label for="">Nom</label>
+                                        <input type="text" formControlName="nom" class="form-control" aria-describedby="emailHelp" placeholder="Nom">
+                                        <div *ngIf="formRegister.controls['nom'].errors && (ngForm.submitted  || formRegister.touched)" class="text-danger">
+                                            Champs incorrect.
+                                        </div> 
+                                    </div>
+                                   
+                                    <div class="form-group">
+                                        <label for="telephone">Prenom</label>
+                                        <input type="text" formControlName="prenom" class="form-control" aria-describedby="telephoneHelp" placeholder="Prenom">
+                                        <div *ngIf="formRegister.controls['prenom'].errors && (ngForm.submitted  || formRegister.touched)" class="text-danger">
+                                            Champs incorrect.
+                                        </div> 
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="">Login</label>
+                                        <input type="text" formControlName="username" class="form-control" aria-describedby="nameHelp" placeholder="Votre login">
+                                        <div *ngIf="formRegister.controls['username'].errors && (ngForm.submitted  || formRegister.touched)" class="text-danger">
+                                            Champs incorrect.
+                                        </div> 
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="">Commune</label>
+                                        <input type="text" formControlName="commune" class="form-control" aria-describedby="localisationHelp" placeholder="Commune">
+                                        <div *ngIf="formRegister.controls['commune'].errors && (ngForm.submitted  || formRegister.touched)" class="text-danger">
+                                            Champs incorrect.
+                                        </div> 
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="">Telephone</label>
+                                        <input type="text" formControlName="telephone" class="form-control" aria-describedby="localisationHelp" placeholder="Telephone">
+                                        <div *ngIf="formRegister.controls['telephone'].errors && (ngForm.submitted  || formRegister.touched)" class="text-danger">
+                                            Champs incorrect.
+                                        </div> 
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="">Details</label>
+                                        <input type="text" formControlName="details" class="form-control" aria-describedby="localisationHelp" placeholder="Details">
+                                        <div *ngIf="formRegister.controls['details'].errors && (ngForm.submitted  || formRegister.touched)" class="text-danger">
+                                            Champs incorrect.
+                                        </div> 
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="">Mot de passe: </label>
+                                        <input type="password" formControlName="password" class="form-control" aria-describedby="localisationHelp" placeholder="Mot de passe">
+                                        <div *ngIf="formRegister.controls['password'].errors && (ngForm.submitted  || formRegister.touched)" class="text-danger">
+                                            Champs incorrect.
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="">Repeter le mot de passe: </label>
+                                        <input type="password" name="password02" class="form-control" aria-describedby="localisationHelp" placeholder="Repeter le mot de passe">
+                                    </div>
+
+                                    <div class="col-md-12 text-center mb-3">
+                                        <button type="submit" class="btn btn-warning">S'inscrire</button>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <p class="text-center">
+                                                <a (click)="gotoLogin()" id="signin">Se connecter</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>

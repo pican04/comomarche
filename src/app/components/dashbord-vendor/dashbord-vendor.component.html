@@ -1,0 +1,162 @@
+<div class="container emp-profile">
+    <form method="post">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img src="https://www.landmark-maps.com/wp-content/uploads/2021/11/avatar-woman.png" alt="" />
+                    <div class="file btn btn-lg btn-primary">
+                        Change ma photo
+                        <input type="file" name="file" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h5>
+                        {{ infosMarchand.nom }} {{ infosMarchand.prenom }}
+                    </h5>
+                    <h6>
+                        {{ infosMarchand.telephone }}
+                    </h6>
+                    <!-- <p class="proile-rating">MONTANT TOTAL : <span>450 050 Fcfa</span></p> -->
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                aria-controls="home" aria-selected="true">Infos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white stck" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                aria-controls="profile" aria-selected="false">Ajouter un nouveau stock</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div style="margin-top: 15px;" class="col-md-2">
+                <input style="background-color: #FABB0F;" type="submit" class="profile-edit-btn" name="btnAddMore"
+                    value="Modifier" />
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                
+            </div>
+
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Identifiant</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ infosMarchand.username }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Nom</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ infosMarchand.nom }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>telephone</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ infosMarchand.telephone }}</p>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                        <!-- si enregistrement est Ok -->
+                        <div *ngIf="isOk == 1" class="alert alert-success" role="alert">
+                            Enregistrement bien effectue
+                        </div>
+
+                        <form [formGroup]="formPost" #ngForm="ngForm" (ngSubmit)="submitForm()">
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Prix (Fcfa)</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input formControlName="prix" class="form-control" type="number">
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Prix Max (Fcfa)</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input formControlName="prixMax" class="form-control" type="number">
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Prix Min (Fcfa)</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input formControlName="prixMin" class="form-control" type="number">
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Description</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input formControlName="description" class="form-control" type="text">
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Quantite(kg/botte/boite)</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input formControlName="unite" class="form-control" type="number">
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Produit </label>
+                                </div>
+                                <div class="col-md-6">
+                                    <select formControlName="productId" class="form-control">
+                                        <option *ngFor="let details of listProduits" value="{{ details.id }}"> {{ details.nom }} </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 15px;" class="row">
+                                <input (click)="onPublierStock()" style="background-color: #FABB0F; color: white;" type="submit"
+                                    class="profile-edit-btn" name="btnAddMore" value="Publier" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 15px; text-align: center;" class="col-md-4">
+                <input  (click)="gotoAccueil()" style="background-color: #FABB0F; margin-bottom: 10px; color: white;" type="submit" class="profile-edit-btn"
+                    name="btnAddMore" value="Revenir à la page d'accueil" />
+                    <input (click)="onDeconnecter()" style="background-color: rgb(182, 21, 21); color: white;" type="submit" class="profile-edit-btn"
+                    name="btnAddMore" value="Se déconnecter" />
+            </div>
+            
+        </div>
+    </form>
+</div>

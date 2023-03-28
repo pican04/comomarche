@@ -1,0 +1,154 @@
+
+    
+     <!-- Navbar Start -->
+ <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
+    <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
+        <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
+            <h1 class="fw-bold text m-0">COM<span class="tex">O</span>MARCHE</h1>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse menu" id="navbarCollapse" >
+            <div class="navbar-nav ms-auto p-4 p-lg-0 link">
+                <a (click)="gotoAccueil()" class="nav-item nav-link active">Aller à la page d'accueil</a>
+                <a href="about.html" class="nav-item nav-link">Map producteur</a>
+                <a href="product.html" class="nav-item nav-link">Liste Produit</a>
+                <a href="contact.html" class="nav-item nav-link">Contact</a>
+            </div>
+        
+        </div>
+    </nav>
+</div>
+<!-- Navbar End -->
+    
+    <!-- End Topbar -->
+    <div class="middle-inner">
+        <div class="container">
+            <div class="row">
+                
+
+                
+                <div class="col-lg-12 col-md-12 col-12">
+                    
+<div class="s130">
+    <form [formGroup]="formRecherche" #ngForm="ngForm" (ngSubmit)="submitSerch()">
+      <div class="inner-form">
+        <div class="input-field first-wrap">
+          <div class="svg-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+            </svg>
+          </div>
+          <input formControlName="produitLibelle" placeholder="libelle produit ici....." type="search">
+        </div>
+        <div class="input-field second-wrap">
+          <button class="btn-search"><i class="ti-search">Recherche</i></button>
+        </div>
+      </div>
+      <span class="info">ex. Oignon, Banane...</span>
+    </form>
+  </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+   
+<!--/ End Header -->
+
+
+<!-- grille d'image de legume -->
+<div class="grille-background">
+    <div class="container">
+        <br>
+
+        <div class="row">
+
+            <div *ngFor="let post of lisPosts" class="col-md-3 col-sm-6">
+                <div class="product-grid4">
+                    <div class="product-image4">
+                        <a href="#">
+                            <img class="pic-1" src="../../../assets/img/products/{{ post.product.nom | lowercase }}.jpg">
+                            <img class="pic-2" src="../../../assets/img/products/{{ post.product.nom | lowercase }}2.jpg">
+                        </a>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="title"><a href="#"> {{ post.product.nom }} </a></h3>
+                        <div class="price"> {{ post.prix }} Fcfa </div>
+                        <a href="#" (click)="onModalShow(post)" class="add-to-cart" data-toggle="modal"
+                            data-target="#staticBackdrop">COMMANDER</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Details de la commande.</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form [formGroup]="commandeForm" (ngSubmit)="onCommander()">
+                            <div class="alert alert-dark" role="alert">
+                                Article: {{ selectNameProduct }}
+                            </div>
+                            <div class="alert alert-dark" role="alert">
+                                Prix par Kilo: {{ selectPrixProduct }} Fcfa
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="inputEmail4">Nom et prenom</label>
+                                    <input type="text" formControlName="fullName" class="form-control"
+                                        placeholder="Nom et prenom">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="inputPassword4">Contact</label>
+                                    <input type="text" formControlName="contact" class="form-control"
+                                        placeholder="Contact">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputAddress">Adresse</label>
+                                <input type="text" formControlName="adresse" class="form-control" id="inputAddress"
+                                    placeholder="Votre adresse">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputAddress">Votre quantite (KG):</label>
+                                <input type="number" (keyup)="onCalcul()" formControlName="quantite"
+                                    class="form-control" id="inputAddress" placeholder="Votre adresse">
+                            </div>
+
+                            <div class="jumbotron jumbotron-fluid">
+                                <div class="container">
+                                    <p class="lead">Prix Total:</p>
+                                    <h3 class="display-4" *ngIf="commandeForm.value.quantite"> {{ montantState }}</h3>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-warning">Passer la commande</button>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" (click)="onCloseModal()" class="btn btn-secondary"
+                            data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ./Modal -->
+
+    </div>
+</div>
+
+
+
